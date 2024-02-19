@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hotel AM</title>
+        <script defer src="./script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/feather-icons"></script>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"> <!-- Enlace a la fuente Montserrat -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="caja container titulo">Hotel AM</h1>
+            <div class="container caja">
+                <nav class="botones">
+                    <ul class="lista">
+                        <a href="iniciarSesion.html">Ingresar</a>
+                        <a href="#Simulacion">Simulación</a>
+                        <a href="#Carrito">Carrito</a>
+                        <a href="#mapa">Ubicacion</a>
+                        <a href="#reviews">Reseñas</a>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+
+        <section id="Inicio">
+            <div class="container caja" id="bloqueTitulo">
+                <div class="col izquierda">
+                    <p>
+                        Bienvenido a la pagina web de Hotel AM, el hotel más innovador del momento.
+                        En este sitio tienes todo lo que necesitas saber sobre este grandioso hospedaje.
+                    </p>
+                    <aside>
+                        <a href="#Simulacion" class="links">Los costos son calculados luego de la simulación.</a>
+                    </aside>
+                </div>
+                <div class="row-cols-auto justify-content-center align-items-center g-2">
+                    <div class="col derecha"><div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img src="https://img.freepik.com/fotos-premium/imagen-llamativa-lobby-hotel-moderno-que-exuda-estilo-lujo-traves-diseno-innovador-muebles-elegantes_875722-6327.jpg" class="d-block w-100" alt="Hotel innovador">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://img.freepik.com/fotos-premium/imagen-llamativa-lobby-hotel-moderno-que-exuda-estilo-lujo-traves-diseno-innovador-muebles-elegantes_875722-6324.jpg" class="d-block w-100" alt="Hotel innovador2">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://img.freepik.com/fotos-premium/moderno-hotel-lujo-recepcion-oficina-salon-silla-sala-reuniones_105762-1738.jpg" class="d-block w-100" alt="Hotel innovador3">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://img.freepik.com/fotos-premium/moderno-hotel-lujo-recepcion-oficinas-salon-reuniones_105762-1889.jpg" class="d-block w-100" alt="Hotel innovador4">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://img.freepik.com/foto-gratis/vista-lujoso-espacio-interior-hotel_23-2150683413.jpg" class="d-block w-100" alt="Hotel innovador5">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://img.freepik.com/foto-gratis/vista-lujoso-espacio-interior-hotel_23-2150683413.jpg" class="d-block w-100" alt="Hotel innovador6">
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="Simulacion">
+            <div class="container carrito" id="formularioSimulacion">
+                <H2>Simulacion</H2><br>
+                <p>Elija las cantidades deseadas para su reserva</p>
+                <div>
+                    <label for="personas">Ingrese la cantidad de personas que van a quedarse:</label>
+                    <button id="personas" type="button" class="boton2"><i data-feather="user-plus"></i></button>
+                </div>
+                <div>
+                    <label for="noches">Ingrese la cantidad de noches que deseas quedarte:</label>
+                    <input id="noches" type="number" />
+                </div>
+                <div>
+                    <label for="comidas">Ingrese la cantidad de comidas que desean al dia:</label>
+                    <input id="comidas" type="number" />
+                </div>
+                <div>
+                    <label for="masajes">Ingrese la cantidad de personas que desean usar el servicio de masajes:</label>
+                    <input id="masajes" type="number" />
+                </div>
+                <div>
+                    <label for="gym">Ingrese la cantidad de personas que desean ingresar a la sala de musculación:</label>
+                    <input id="gym" type="number" />
+                </div> <br>
+                <div>
+                    <label for="enviarForm">Haga click aqui para confirmar los datos</label>
+                    <input class="boton1" id="enviarForm" type="submit" value="Enviar" /> <br>
+                </div>
+            </div>
+            <div id="resultados" class="container caja final"></div>
+        </section>
+        <section id="Carrito">
+            <div class="container carrito">
+                <h3>Carrito</h3>
+                <div id="carrito">
+                    <p>No hay elementos en tu carrito.</p>
+                </div>
+                <input class="boton1" value="Eliminar Carrito"/>
+            </div>
+        </section>
+
+        <bottom id="Final">
+            <div class="container caja final">
+                <div id="reviews" class="bs5-grid-row">
+
+                </div>
+            <div class="bs5-grid-row caja">
+                <div id="mapa"></div>
+            </div>
+            </div>
+        </bottom>
+    </body>
+</html>
