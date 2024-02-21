@@ -1,6 +1,7 @@
 feather.replace();
 
 //Variables
+//
 const Costos = {
     NOCHE : 150, 
     COMIDA : 60, 
@@ -8,21 +9,25 @@ const Costos = {
     GYM : 10};
 
 const resultados = {
-    noches : 0,
+    estadia : 0,
     comidas : 0, 
     masajes : 0, 
     gym : 0, 
     todo : 0
 };
 
-let resultadosStorage = JSON.parse(sessionStorage.getItem('resultados'));
-//const datosPersona = JSON.parse(sessionStorage.getItem());
-const enviarForm = document.getElementById('enviarForm');
+const enviarDatos = document.getElementById('enviarDatos');
+const personaSS = JSON.parse(sessionStorage.getItem('nombre'));
+const personaLS = JSON.parse(localStorage.getItem(personaSS));
+const simulacion = document.getElementById('resultados');
+const agregarCarrito = document.getElementById('agregarCarrito');
+const carrito = document.getElementById('carrito');
 let todasReviews = [];
 let cantidadMostrar = 5;
 
 
 //APIs
+//
 function obtenerReviews() {
     const apiUrl = 'https://jsonplaceholder.typicode.com/comments';
 
@@ -61,6 +66,7 @@ async function iniciarMapa() {
 
 
 //Funciones
+//
 //Mostrar Reseñas
 function mostrarReviews() {
     const contenedorReviews = document.getElementById('reviews');
@@ -110,126 +116,140 @@ function mostrarReviews() {
     }
 }
 
-//Boton de submit
-enviarForm.addEventListener('click', () => {
-    const personas = document.getElementById('personas');
-    const noches = document.getElementById('noches');
-    const comidas = document.getElementById('comidas');
-    const masajes = document.getElementById('masajes');
-    const gym = document.getElementById('gym');
-
-    if (personas.value && noches.value && comidas.value && masajes.value && gym.value) {
-        const Datos = {
-            'personas' : personas.value,
-            'noches' : noches.value,
-            'comidas' : comidas.value,
-            'masajes' : masajes.value,
-            'gym' : gym.value
-        };
-        console.log('Datos enviados');
-        calcularCostos(Datos);
-    }
-    
-});
-
+//Calcula los costos
 const calcularCostos = (datos) => {
-    resultados.noches = datos.noches * Costos.NOCHE;
-    resultados.comidas = datos.comidas * Costos.COMIDA;
-    resultados.masajes = datos.masajes * Costos.MASAJES;
-    resultados.gym = datos.gym * Costos.GYM;
-    resultados.todo = resultados.noches + resultados.comidas + resultados.masajes + resultados.gym;
+    resultados.estadia = datos.personas * datos.estadia * Costos.NOCHE;
+    resultados.comidas = datos.personas * datos.estadia * datos.comidas * Costos.COMIDA;
+    resultados.masajes = datos.masajes * datos.estadia * Costos.MASAJES;
+    resultados.gym = datos.gym * datos.estadia * Costos.GYM;
+    resultados.todo = resultados.estadia + (resultados.comidas + resultados.masajes + resultados.gym);
 
     console.log('Costo calculado');
-    mostrarCostos(resultados);
+
 };
 
-const mostrarCostos = (datos) => {
-    let resultados = document.getElementById('resultados');
+//Muestra los costos en el contenedor
+const mostrarCostos = (datos, container) => {
+    
     if (datos) {
-        resultados.innerHTML = `
+        container.innerHTML = `
     <p><b>Monto total de costos por cada servicio:</b></p>
     `;
 
     for (const elemento in datos) {
-        resultados.innerHTML += `
+        container.innerHTML += `
         <p>El costo total por ${elemento} es: ${datos[elemento]} USD.</p>
         `;
     }
+    
+    }
+}
+
+//Carga el carrito
+const cargarCarrito = () => {
+    if (personaSS.length > 0) {
+
+        mostrarCostos(personaLS.carrito, carrito);
+        carrito.innerHTML +=  `
+        <input id="eliminarCarrito" class="boton1" value="Eliminar Carrito"/>`;
+        carrito.innerHTML +=  `
+        <input id="pagar" class="boton1" value="Comprar reserva"/>`;
+
+        const agregarCompra = document.getElementById('pagar');
+
+        //Elimina elementos del carrito
+        eliminarCarrito = document.getElementById('eliminarCarrito');
+        eliminarCarrito.addEventListener('click', () => {
+            personaLS.carrito = {};
+            localStorage.setItem(personaSS, JSON.stringify(personaLS));
+            carrito.innerHTML = `<p>No hay elementos en tu carrito.</p>`;
+        })
+       
+        console.log(personaLS);
+        console.log(`Carrito de ${personaSS} iniciado correctamente`);
+
+        //Boton de agregar a la compra
+        agregarCompra.addEventListener('click', () => {
+                
+            if (((personaLS.compras.length > 0) && !(personaLS.compras.indexOf(personaLS.carrito) !== -1)) || 
+            (personaLS.compras.length === 0)) {
+                console.log(1);
+                personaLS.compras.push(personaLS.carrito);
+                personaLS.carrito = {};
+                localStorage.setItem(personaSS, JSON.stringify(personaLS));
+
+                carrito.innerHTML = `<p>Los elementos del carrito fueron agregados a la lista de compras efectuadas.</p>`;
+
+                console.log(`Carrito de ${personaLS.nombre} agregado al compras efectuadas`);
+
+            } else {
+                carrito.innerHTML += `<p>Los elementos del carrito ya estan agregados a la lista de compras efectuadas.</p>`;
+            }
+        });
+
     }
 }
 
 
 //Programa principal
+//
 obtenerReviews();
 iniciarMapa();
 
+if (personaSS && personaLS.carrito) {
 
-//Para iniciarSesion.html
-//Variables
-const borrarDatos = document.getElementById('borrarForm');
-const formularioRegistro = document.getElementById('formularioRegistro');
-let personaActual;
-
-//Funciones
-formularioRegistro.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const nombre = document.getElementById('inputName');
-    const correo = document.getElementById('inputEmail');
-    const terminos = document.getElementById('terminos');
-    const regex = /^[a-zA-Z\s]{2,}$/;
-    let datosJSON = [];
+    if (Object.keys(personaLS.carrito).length > 0) {
+        cargarCarrito();
+        console.log(`Carrito cargado por inicio`);
+    }
     
-    personaActual = nombre;
+}
 
-    if (nombre.value && correo.value && terminos.checked) {
-        datosJSON.push({
-            'nombre' : nombre.value,
-            'correo' : correo.value,
-            'carrito' : {}
-        });
-        localStorage.setItem(nombre.value, JSON.stringify(datosJSON));
-        window.location.href = 'index.html';
-    } else {
-        if ((nombre.value === "") || !(regex.test(nombre.value))) {
-            const ayudaNombre = document.getElementById('nameHelp');
-            console.log("Falta introducir el nombre");
-            ayudaNombre.innerText = `Introduzca un nombre valido.`;
-            ayudaNombre.classList.add('text-warning');
-            nombre.focus();
-            setTimeout(() => {
-                ayudaNombre.innerText = `Introduzca su nombre y apellido.`;
-                ayudaNombre.classList.remove('text-warning');
-            }, 10000);
-        } 
-    else {
-        if (correo.value === "") {
-            const ayudaCorreo = document.getElementById('emailHelp');
-            console.log("Error con correo");
-            ayudaCorreo.innerText = `Introduzca un correo electronico valido.`;
-            ayudaCorreo.classList.add('text-warning');
-            correo.focus();
-            setTimeout(() => {
-                ayudaCorreo.innerText = `Introduzca su correo electronico.`;
-                ayudaCorreo.classList.remove('text-warning');
-            }, 10000);
-        } 
-    else {
-        if (!terminos.checked) {
-            const ayudaTerminos = document.createElement('p');
-            const letraTerminos = document.getElementById('letraTerminos');
-            ayudaTerminos.textContent = `Debes de aceptar los términos para continuar.`;
-            ayudaTerminos.classList.add('text-warning');
-            console.log("Error con terminos");
-            letraTerminos.insertAdjacentElement('afterend', ayudaTerminos);
-            terminos.focus();
-            setTimeout(() => {
-                ayudaTerminos.remove();
-            }, 10000);
+//Boton de confirmar datos para el simulacro
+enviarDatos.addEventListener('click', () => {
+    const personas = document.getElementById('personas');
+    const estadia = document.getElementById('estadia');
+    const comidas = document.getElementById('comidas');
+    const masajes = document.getElementById('masajes');
+    const gym = document.getElementById('gym');
+
+    if (personas.value && estadia.value && comidas.value && masajes.value && gym.value) {
+        const Datos = {
+            'personas' : personas.value,
+            'estadia' : estadia.value,
+            'comidas' : comidas.value,
+            'masajes' : masajes.value,
+            'gym' : gym.value
+        };
+
+        console.log('Datos enviados');
+        calcularCostos(Datos);
+        mostrarCostos(resultados, simulacion);
+
+
+        if (personaSS) {
+            simulacion.innerHTML += `<input class="boton1" id="agregarCarrito" type="submit" value="Agregar al carrito" />`;
+
+            const agregarCarrito = document.getElementById('agregarCarrito');
+
+            //Boton de agregar al carrito
+            agregarCarrito.addEventListener('click', () => {
+                if (personaLS.length > 0 || personaSS) {
+    
+                    personaLS.carrito = resultados;
+                    localStorage.setItem(personaSS, JSON.stringify(personaLS));
+                    cargarCarrito();
+    
+                    simulacion.innerHTML = ``;
+    
+                    console.log(`Carrito cargado al agregar un elemento`);
+                    console.log(`Simulacro de ${personaLS.nombre} agregado al carrito`);
+                }
+            });
+        } else {
+            simulacion.innerHTML += `
+            <p>Para poder agregar al carrito necesitas <a href="./Paginas/iniciarSesion.html">iniciar sesion</a></p>`;
         }
     }
-    }
-    }
-    console.log(datosJSON);
-    sessionStorage.setItem(nombre.value, JSON.stringify(datosJSON))
     
 });

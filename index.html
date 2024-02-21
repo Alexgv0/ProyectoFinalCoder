@@ -18,7 +18,7 @@
             <div class="container caja">
                 <nav class="botones">
                     <ul class="lista">
-                        <a href="iniciarSesion.html">Ingresar</a>
+                        <a href="./Paginas/iniciarSesion.html">Ingresar</a>
                         <a href="#Simulacion">Simulación</a>
                         <a href="#Carrito">Carrito</a>
                         <a href="#mapa">Ubicacion</a>
@@ -76,16 +76,18 @@
         </section>
 
         <section id="Simulacion">
+            
             <div class="container carrito" id="formularioSimulacion">
                 <H2>Simulacion</H2><br>
                 <p>Elija las cantidades deseadas para su reserva</p>
                 <div>
                     <label for="personas">Ingrese la cantidad de personas que van a quedarse:</label>
-                    <button id="personas" type="button" class="boton2"><i data-feather="user-plus"></i></button>
+                    <input id="personas" type="number" />
+                    <!--button id="personas" type="button" class="boton2"><i data-feather="user-plus"></i></button-->
                 </div>
                 <div>
-                    <label for="noches">Ingrese la cantidad de noches que deseas quedarte:</label>
-                    <input id="noches" type="number" />
+                    <label for="estadia">Ingrese la cantidad de noches que deseas quedarte:</label>
+                    <input id="estadia" type="number" />
                 </div>
                 <div>
                     <label for="comidas">Ingrese la cantidad de comidas que desean al dia:</label>
@@ -101,19 +103,22 @@
                 </div> <br>
                 <div>
                     <label for="enviarForm">Haga click aqui para confirmar los datos</label>
-                    <input class="boton1" id="enviarForm" type="submit" value="Enviar" /> <br>
+                    <input class="boton1" id="enviarDatos" type="submit" value="Enviar" /> <br>
                 </div>
             </div>
             <div id="resultados" class="container caja final"></div>
+    
         </section>
         <section id="Carrito">
+    
             <div class="container carrito">
-                <h3>Carrito</h3>
+                <h3 class="titulo2">Carrito</h3>
                 <div id="carrito">
                     <p>No hay elementos en tu carrito.</p>
                 </div>
-                <input class="boton1" value="Eliminar Carrito"/>
+
             </div>
+        
         </section>
 
         <bottom id="Final">

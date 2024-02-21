@@ -9,14 +9,10 @@
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <link rel="stylesheet" href="../style.css">
-        <script defer src="../script.js"></script>
+        <script src="https://unpkg.com/feather-icons"></script>
+        <script defer src="./iniciarSesion.js"></script>
         <!-- Bootstrap CSS v5.2.1 -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
     </head>
 
     <body>
@@ -30,19 +26,19 @@
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="John Doe">
-                        <div id="nameHelp" class="form-text">Introduzca su nombre y apellido.</div>
+                        <div id="nameHelp" class="textoFormulario">Introduzca su nombre y apellido.</div>
                     </div>
                     <div class="mb-3">
                         <label for="inputEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="johndoe@hotmail.com">
-                        <div id="emailHelp" class="form-text">Introduzca su correo electrónico.</div>
+                        <div id="emailHelp" class="textoFormulario">Introduzca su correo electrónico.</div>
                     </div>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="terminos">
-                        <label id="letraTerminos" class="form-check-label" for="terminos">Acepto los <a rel="noreferrer noopener" target="_blank" href="terms.html">Términos y condiciones</a></label>
+                        <label id="letraTerminos" class="form-check-label" for="terminos">Acepto los <a rel="noreferrer noopener" target="_blank" href="terms.html" class="links">Términos y condiciones</a></label>
                     </div>
                     <button type="submit" class="btn btn-primary" id="enviarRegistro" >Enviar</button>
-                    <a class="" id="enviarRegistro" class="text-info">Ya tengo mi cuenta</a>
+                    <!--a id="login" class="links">Ya tengo mi cuenta/-->
               </form>
             </div>
         </main>
